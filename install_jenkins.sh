@@ -29,7 +29,7 @@ chown -R 1000:1000 /var/jenkins_home/
 # Git clone 
 git clone https://github.com/dasdib/jenkins.git
 
-cd /jenkins
+cd jenkins
 docker-compose up -d
 # show endpoint
 echo 'Jenkins installed'
