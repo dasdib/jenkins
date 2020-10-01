@@ -44,4 +44,4 @@ docker-compose up -d
 echo 'Jenkins installed'
 echo 'You should now be able to access jenkins at: http://'$(curl -s ifconfig.co)':8080'
 echo 'Jenkins Temp password'
-echo cat /var/jenkins_home/secrets/initialAdminPassword
+cat /var/jenkins_home/secrets/initialAdminPassword
