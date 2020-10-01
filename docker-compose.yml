@@ -1,7 +1,8 @@
-version: '3.7'
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: ./
+      dockerfile: .
     privileged: true
     user: root
     ports:
