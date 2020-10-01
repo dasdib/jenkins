@@ -29,7 +29,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 echo 'Docker installation Completed'
-
+rm -rf jenkins
 mkdir -p /var/jenkins_home
 chown -R 1000:1000 /var/jenkins_home/
 
@@ -43,3 +43,5 @@ docker-compose up -d
 # show endpoint
 echo 'Jenkins installed'
 echo 'You should now be able to access jenkins at: http://'$(curl -s ifconfig.co)':8080'
+echo 'Jenkins Temp password'
+echo cat /var/jenkins_home/secrets/initialAdminPassword
