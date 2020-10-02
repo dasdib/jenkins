@@ -5,19 +5,24 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
 
-RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
-    echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" \
-    > /etc/yum.repos.d/azure-cli.repo
+
 
 RUN apt-get update && apt-get install -y git curl openjdk-8-jdk \
-azure-cli \
 apt-transport-https \
 ca-certificates \
 curl \
 gnupg2 \
-software-properties-common && rm -rf /var/lib/apt/lists/*
+lsb-release && rm -rf /var/lib/apt/lists/*
 
+RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+    gpg --dearmor | \
+    tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
 
+RUN AZ_REPO=$(lsb_release -cs) \
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    tee /etc/apt/sources.list.d/azure-cli.list
+
+RUN apt-get update && apt-get install -y azure-cli
 
 RUN mkdir -p /tmp/download && \
  curl -L https://download.docker.com/linux/static/stable/x86_64/docker-18.06.3-ce.tgz | tar -xz -C /tmp/download && \
