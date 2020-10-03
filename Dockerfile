@@ -7,6 +7,8 @@ RUN mv ./kubectl /usr/local/bin/kubectl
 
 RUN apt-get update && apt-get install -y git curl openjdk-8-jdk && rm -rf /var/lib/apt/lists/*
 
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
 RUN mkdir -p /tmp/download && \
  curl -L https://download.docker.com/linux/static/stable/x86_64/docker-18.06.3-ce.tgz | tar -xz -C /tmp/download && \
  rm -rf /tmp/download/docker/dockerd && \
